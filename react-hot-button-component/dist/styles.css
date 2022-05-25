@@ -1,0 +1,49 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.hot-button {
+  margin: 2rem;
+  padding: 1rem;
+  font-size: 1.5rem;
+  box-shadow: 10px 5px 5px black;
+  cursor: pointer;
+  transition-duration: 200ms;
+}
+
+.light-gray {
+  background-color: lightgray;
+}
+
+.midnight-blue {
+  background-color: #351b75;
+  color: white;
+}
+
+.slate-blue {
+  background-color: #664ea7;
+  color: white;
+}
+
+.indian-red {
+  background-color: #e06666;
+  color: white;
+}
+
+.sandy-brown {
+  background-color: #f6b26b;
+}
+
+.yellow {
+  background-color: #ffff02;
+}
+
+.white {
+  background-color: #fff;
+}

@@ -12,25 +12,16 @@ class ToggleSwitch extends React.Component {
   }
 
   render() {
-    let { text, color, position } = {
-      color: '',
-      position: '',
-      text: 'OFF'
-    };
-
-    if (this.state.isOn) {
-      text = 'ON';
-      color = 'green';
-      position = 'right';
-    }
-
+    const color = this.state.isOn ? 'green' : '';
+    const position = this.state.isOn ? 'right' : '';
+    const text = this.state.isOn ? 'ON' : 'OFF';
     return (
       <div className='container'>
         <div className={`switch-container ${color}`}>
           <div className={`switch ${position}`} onClick={this.handleToggle}>
           </div>
         </div>
-        <span className='status'>{text}</span>
+        <span>{text}</span>
       </div>
     );
   }

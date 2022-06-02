@@ -4,8 +4,7 @@ class ValidatedInput extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      password: '',
-      isVisible: false
+      password: ''
     };
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
   }

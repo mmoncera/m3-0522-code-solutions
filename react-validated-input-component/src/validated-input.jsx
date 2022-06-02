@@ -37,13 +37,13 @@ class ValidatedInput extends Component {
   render() {
     const { msg, iconValidity } = this.checkPasswordValidity();
     return (
-      <form className='password-form'>
-        <label className='password-label' htmlFor="password">Password</label>
-        <div className='password-input-container'>
-          <input type="password" id="password" className='password-input' name='password' value={this.state.password} onFocus={this.handlePasswordFocus} onChange={this.handlePasswordChange} />
+      <form className="password-form">
+        <label className="password-label" htmlFor="password">Password</label>
+        <div className="password-input-container">
+          <input type="password" id="password" className="password-input" name="password" value={this.state.password} onFocus={this.handlePasswordFocus} onChange={this.handlePasswordChange} />
           <i className={iconValidity}></i>
         </div>
-        <span className='invalid'>{msg}</span>
+        <span className="invalid">{msg}</span>
       </form>
     );
   }

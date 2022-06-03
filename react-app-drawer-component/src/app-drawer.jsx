@@ -6,18 +6,11 @@ class AppDrawer extends Component {
     this.state = {
       isOpen: false
     };
-    this.handleOpenMenu = this.handleOpenMenu.bind(this);
-    this.handleCloseMenu = this.handleCloseMenu.bind(this);
+    this.handleOpenCloseMenu = this.handleOpenCloseMenu.bind(this);
   }
 
-  handleOpenMenu(event) {
-    this.setState({ isOpen: true });
-  }
-
-  handleCloseMenu(event) {
-    if (event.target.className === 'nav-link' || event.target.className === 'overlay') {
-      this.setState({ isOpen: false });
-    }
+  handleOpenCloseMenu(event) {
+    this.setState({ isOpen: !this.state.isOpen });
   }
 
   render() {
@@ -25,18 +18,24 @@ class AppDrawer extends Component {
       <>
         {this.state.isOpen && (
         <>
-          <div className="overlay" onClick={this.handleCloseMenu}></div>
+          <div className="overlay" onClick={this.handleOpenCloseMenu}></div>
           <nav className='menu-container'>
             <h1>Menu</h1>
-            <ul className="link-container" onClick={this.handleCloseMenu}>
-              <li className="link"><a className="nav-link">About</a></li>
-              <li className="link"><a className="nav-link">Get Started</a></li>
-              <li className="link"><a className="nav-link">Sign in</a></li>
+            <ul className="link-container">
+              <li className="link" onClick={this.handleOpenCloseMenu}>
+                <a href="" className="nav-link">About</a>
+              </li>
+              <li className="link" onClick={this.handleOpenCloseMenu}>
+                <a href="" className="nav-link">Get Started</a>
+              </li>
+              <li className="link" onClick={this.handleOpenCloseMenu}>
+                <a href="" className="nav-link">Sign in</a>
+              </li>
             </ul>
           </nav>
         </>
         )}
-        <i className="fa-solid fa-bars menu-bars" onClick={this.handleOpenMenu}></i>
+        <i className="fa-solid fa-bars menu-bars" onClick={this.handleOpenCloseMenu}></i>
       </>
     );
   }

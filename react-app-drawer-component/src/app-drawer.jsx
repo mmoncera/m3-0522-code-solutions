@@ -26,16 +26,14 @@ class AppDrawer extends Component {
         {this.state.isOpen && (
         <>
           <div className="overlay" onClick={this.handleCloseMenu}></div>
-          <div className="menu-container">
-            <nav className='nav-container' onClick={this.handleCloseMenu}>
-              <h1>Menu</h1>
-              <ul className="link-container">
-                <li className="links"><a className="nav-link">About</a></li>
-                <li className="links"><a className="nav-link">Get Started</a></li>
-                <li className="links"><a className="nav-link">Sign in</a></li>
-              </ul>
-            </nav>
-          </div>
+          <nav className='menu-container'>
+            <h1>Menu</h1>
+            <ul className="link-container" onClick={this.handleCloseMenu}>
+              <li className="link"><a className="nav-link">About</a></li>
+              <li className="link"><a className="nav-link">Get Started</a></li>
+              <li className="link"><a className="nav-link">Sign in</a></li>
+            </ul>
+          </nav>
         </>
         )}
         <i className="fa-solid fa-bars menu-bars" onClick={this.handleOpenMenu}></i>

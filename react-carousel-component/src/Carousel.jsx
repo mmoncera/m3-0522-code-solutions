@@ -55,13 +55,7 @@ class Carousel extends Component {
   }
 
   render() {
-    const imageList = this.props.list.map(({ name, url }, index) => {
-      const currentImage = this.state.currentIndex === index ? 'pokemon' : 'hidden';
-      return (
-        <img key={name} className={currentImage} src={url} alt={name}></img>
-      );
-    });
-
+    const { name, url } = this.props.list[this.state.currentIndex];
     const circles = this.props.list.map(({ name }, index) => {
       const currentCircle = this.state.currentIndex === index ? 'fas fa-circle circle' : 'far fa-circle circle';
       return (
@@ -73,9 +67,7 @@ class Carousel extends Component {
       <div className="carousel-container">
         <div className="row">
           <i className="fas fa-angle-left previous" onClick={this.handlePrevious}></i>
-          <div>
-            {imageList}
-          </div>
+          <img className="pokemon" src={url} alt={name}></img>
           <i className="fas fa-angle-right next" onClick={this.handleNext}></i>
         </div>
         <div className="row">

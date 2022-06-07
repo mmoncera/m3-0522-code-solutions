@@ -73,7 +73,7 @@ class Carousel extends Component {
       <div className="carousel-container">
         <div className="row">
           <i className="fas fa-angle-left previous" onClick={this.handlePrevious}></i>
-          <div className="column-third">
+          <div>
             {imageList}
           </div>
           <i className="fas fa-angle-right next" onClick={this.handleNext}></i>

@@ -1,0 +1,40 @@
+.carousel-container {
+  max-width: 900px;
+  margin: 10rem auto;
+  border: 0.25rem solid black;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.previous,
+.next {
+  margin-top: 5rem;
+  font-size: 3rem;
+  cursor: pointer;
+}
+
+.pokemon {
+  max-width: 100%;
+}
+
+.circle-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.25rem;
+  margin-block: 1.5rem;
+}
+
+.circle {
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}

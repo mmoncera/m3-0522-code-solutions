@@ -1,0 +1,8 @@
+body {
+  background-image: url("./images/cover.avif");
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  background-color: rgb(94 142 158);
+}

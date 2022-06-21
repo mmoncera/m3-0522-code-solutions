@@ -21,14 +21,11 @@ function authorizationMiddleware(req, res, next) {
   try {
     const token = req.get('x-access-token');
     if (!token) {
-      throw new ClientError(401, 'invalid access token');
+      throw new ClientError(401, 'authentication required');
     }
     const payload = jwt.verify(token, process.env.TOKEN_SECRET);
     req.user = payload;
     next();
-  } catch (err) {
-    next(err);
-  }
+  } catch (err) { next(err); }
 }
-
 module.exports = authorizationMiddleware;

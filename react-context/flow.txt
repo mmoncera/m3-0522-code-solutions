@@ -64,7 +64,7 @@ User can sign in:
 
     - relative path: react-context/client/components/redirect.jsx
       - new URL(window.location) is called and its return value assigned to const url
-      - if props.to is strictly equal to '' it assigns url.hash to '#'
+      - if props.to is strictly equal to '' it assigns '#' to url.hash
       - window.location.replace(url) is called to remove the current page from the history list and replaces it with the url object
       - the Redirect component returns null
 
@@ -105,7 +105,7 @@ User can sign out
 
   - relative path: react-context/client/components/redirect.jsx
     - new URL(window.location) is called and its return value assigned to const url
-    - url.hash to props.to
+    - props.to is assigned to url.hash
     - window.location.replace(url) is called to remove the current page from the history list and replaces it with the url object
     - the Redirect component returns null
 

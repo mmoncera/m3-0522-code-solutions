@@ -1,0 +1,113 @@
+User can sign up:
+  - window.location.href: http://localhost:3000/#sign-up
+
+  CLIENT
+    - relative path: react-context/client/components/auth-form.jsx
+      - client enters username and password
+      - client clicks Register button and submits info
+      - a fetch post request is sent to /api/auth/sign-up
+
+  SERVER
+    - relative path: react-context/server/index.js
+      - server creates a body property on the request object by calling app.use(express.json)
+      - server gets to the app.post function with the /api/auth/sign-up path
+      - the username and password are destructored from req.body
+      - if there are no errors with the username or password, the password is hashed by calling argon2.hash(password)
+      - then the username and hashedPassword is inserted into the database by calling db.query(sql, params)
+      - if no errors, then the first element is destructored from result.rows as user, sends a response with status 201 and the stringified user object.
+
+  CLIENT
+    - relative path: react-context/client/components/auth-form.jsx
+      - then the response is parsed to a JavaScript object
+      - then 'sign-in' is assigned to window.location.hash
+
+    - relative path: react-context/client/app.jsx
+      - hashchange event is triggered which will change the state for the route property and rerender with the sign-in page (window.location.href: http://localhost:3000/#sign-in)
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+User can sign in:
+  - window.location.href: http://localhost:3000/#sign-in
+
+  CLIENT
+    - relative path: react-context/client/components/auth-form.jsx
+      - client enters username and password
+      - client clicks Log In button and submits info
+      - a fetch post request is sent to /api/auth/sign-in
+
+  SERVER
+    - relative path: react-context/server/index.js
+      - server creates a body property on the request object by calling app.use(express.json)
+      - server gets to the app.post function with the /api/auth/sign-in path
+      - the username and password are destructored from req.body
+      - if there are no errors, db.query(sql, params) is called to get the userId and the hashedPassword from the database
+      - then the first element is destructored from result.rows as user
+      - if there is a user object, the userId and hashedPassword properties are destructored from the user object
+      - argon2.verify(hashedPassword, password) is called which hashes the password the client provided and compares it to the hashedPassword from the database
+      - then if the hashedPassword and the password matches, a payload object is created with the userId and username properties
+      - a token is created by calling jwt.sign(payload, process.env.TOKEN_SECRET)
+      - a response is sent with the stringified object that has the token and user (user value is the payload) properties.
+
+  CLIENT
+    - relative path: react-context/client/components/auth-form.jsx
+      - then the response is parsed to a JavaScript object
+      - then if the result has a user and token property, this.props.onSignIn(result) is called
+
+    - relative path: react-context/client/app.jsx
+      - user and token properties are destructored from the result object
+      - window.localStorage.setItem('react-context-jwt', token) is called setting the property react-context-jwt with the value token to localStorage
+      - the user property of this.state is set to the user property of the result object
+      - the change of state will rerender to the AuthPage
+
+    - relative path: react-context/client/pages/auth.jsx
+      - if there is a user then it returns the Redirect component with a prop of to set to ''
+
+    - relative path: react-context/client/components/redirect.jsx
+      - new URL(window.location) is called and its return value assigned to const url
+      - if props.to is strictly equal to '' it assigns '#' to url.hash
+      - window.location.replace(url) is called to remove the current page from the history list and replaces it with the url object
+      - the Redirect component returns null
+
+    - relative path: react-context/client/app.jsx
+      - hashchange event is triggered which will change the state for the route property and rerender with the home page (window.location.href: http://localhost:3000/#)
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+User can stay signed in (even if they refresh the page)
+  - window.location.href: http://localhost:3000/#
+
+  CLIENT
+  - relative path: react-context/client/app.jsx
+    - client refreshes the page
+    - after the constructor is called, render is called where this.state.isAuthorizing is set to true which returns null
+    - componentDidMount is called
+    - hashchange event listener is added to window
+    - the return value of calling window.localStorage.getItem('react-context-jwt') is assigned to const token
+    - if there is a token, the return value of calling jwtDecode(token) (decodes the token) is assigned to const user otherwise null is assigned to const user
+    - this.setState({ user, isAuthorizing: false }) is called changing the state which rerenders with the home page (window.location.href: http://localhost:3000/#) because there is now a user and isAuthorizing is now false
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+User can sign out
+  - window.location.href: http://localhost:3000/#
+
+  CLIENT
+  - relative path: react-context/client/components/navbar.jsx
+    - client clicks Sign out button
+
+  - relative path: react-context/client/app.jsx
+    - handleSignOut is called
+    - window.localStorage.removeItem('react-context-jwt') which removes the property react-context-jwt (token) from local storage
+    -this.setState({ user: null }) is called changing the state for user which rerenders the page
+
+  - relative path: react-context/client/pages/home.jsx
+    - if !this.context.user return Redirect component with a prop of to set to 'sign-in'
+
+  - relative path: react-context/client/components/redirect.jsx
+    - new URL(window.location) is called and its return value assigned to const url
+    - props.to is assigned to url.hash
+    - window.location.replace(url) is called to remove the current page from the history list and replaces it with the url object
+    - the Redirect component returns null
+
+  - relative path: react-context/client/app.jsx
+    - hashchange event is triggered which will change the state for the route property and rerender with the sign-in page (window.location.href: http://localhost:3000/#sign-in)
